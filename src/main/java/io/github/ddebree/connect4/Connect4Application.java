@@ -1,13 +1,18 @@
 package io.github.ddebree.connect4;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-@SpringBootApplication
 public class Connect4Application {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Connect4Application.class, args);
+    public static void main(String[] args) throws IOException {
+        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            System.out.println("Got: " + line);
+        }
+        System.out.println("Done");
     }
 
 }
