@@ -2,6 +2,15 @@ package io.github.ddebree.connect4;
 
 public class Solver {
 
+    private final int[] columnOrder = new int[Position.WIDTH];
+
+    public Solver() {
+        for (int i = 0; i < Position.WIDTH; i++) {
+            // initialize the column exploration order, starting with center columns
+            columnOrder[i] = Position.WIDTH / 2 + (1 - 2 * (i % 2)) * (i + 1) / 2;
+        }
+    }
+
     // counter of explored nodes.
     private long nodeCount = 0;
 
@@ -38,8 +47,9 @@ public class Solver {
 
         for (int x = 0; x < Position.WIDTH; x++) {
             // compute the score of all possible next move and keep the best one
-            if (position.canPlay(x)) {
-                final Position newPosition = position.nextPostion(x);
+            final int col = columnOrder[x];
+            if (position.canPlay(col)) {
+                final Position newPosition = position.nextPostion(col);
                 int score = -negamax(newPosition); // If current player plays col x, his score will be the opposite of opponent's score after playing col x
                 if (score > bestScore) {
                     bestScore = score; // keep track of best possible score so far.
